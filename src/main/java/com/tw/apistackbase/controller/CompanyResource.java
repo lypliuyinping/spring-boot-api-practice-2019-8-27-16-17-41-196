@@ -30,7 +30,7 @@ public class CompanyResource {
 		 	 
 		 	 //获取某个特定的公司
 		 	 @GetMapping(path = "/{id}")
-		 	 public ResponseEntity<Company> queryCompany(@PathVariable String id) {
+		 	 public ResponseEntity<Company> getOneCompany(@PathVariable String id) {
 		 		
 		 	  for(Company company:companyList) {
 		 	        if(company.getId().equals(id)) {
@@ -50,6 +50,32 @@ public class CompanyResource {
 		 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		 		}
 		 		
-
-	 	
+		 		//分页查询
+//		 		@GetMapping(path = "/{id}/employees")
+//		 		public ResponseEntity<Object> getOnePageOfCompany(@PathVariable String id,
+//		 				int page, int pageSize
+//		 				
+//		 				){
+//		 			for(Company company:companyList) {
+//		 				if (company.getId().equals(id)) {
+//		 					return ResponseEntity.ok(company.getEmployees());
+//		 				}
+//		 			}
+//		 			return new ResponseEntity(HttpStatus.NOT_FOUND);
+//		 		}
+		 				 		
+		 		//添加一个公司
+		 		@PostMapping(path = "/add") 
+		 		public ResponseEntity<Object> addOneEmployee(@RequestBody Employee updateCompany){
+		 			for (Company company:companyList) {
+		 			
+		 					company.setId(company.getId());
+		 					company.setCompanyName(company.getCompanyName());
+		 					company.setEmployees(company.getEmployees());
+		 					company.setEmployeesNumber(company.getEmployeesNumber());
+		 					return ResponseEntity.ok(company);
+		 			
+		 			}		
+		 			return new ResponseEntity(HttpStatus.NOT_FOUND);		
+		 		}
 }
