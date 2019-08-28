@@ -97,4 +97,19 @@ public class CompanyResource {
 		 		  companyList.add(company);
 		 		 return ResponseEntity.ok(company);
 				}
+		 	//删除一个公司
+			    @DeleteMapping("/{id}")
+				public ResponseEntity<Company> deleteEmployeeByID(@PathVariable String id){
+			    	for (Company company:companyList) {
+						if (company.getId().equals(id)) {
+							companyList.remove(company);				
+							return ResponseEntity.ok(company);
+						}
+					}
+					return new ResponseEntity(HttpStatus.NOT_FOUND);
+					 
+				} 
+
+
+			 
 }
