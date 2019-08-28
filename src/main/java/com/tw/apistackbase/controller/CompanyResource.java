@@ -30,8 +30,7 @@ public class CompanyResource {
 		 	 
 		 	 //获取某个特定的公司
 		 	 @GetMapping(path = "/{id}")
-		 	 public ResponseEntity<Company> getOneCompany(@PathVariable String id) {
-		 		
+		 	 public ResponseEntity<Company> getOneCompany(@PathVariable String id) {	 		
 		 	  for(Company company:companyList) {
 		 	        if(company.getId().equals(id)) {
 		 	          return ResponseEntity.ok(company);      
@@ -67,8 +66,7 @@ public class CompanyResource {
 		 		//添加一个公司
 		 		@PostMapping(path = "/add") 
 		 		public ResponseEntity<Object> addOneEmployee(@RequestBody Employee updateCompany){
-		 			for (Company company:companyList) {
-		 			
+		 			for (Company company:companyList) {		 			
 		 					company.setId(company.getId());
 		 					company.setCompanyName(company.getCompanyName());
 		 					company.setEmployees(company.getEmployees());
@@ -78,4 +76,25 @@ public class CompanyResource {
 		 			}		
 		 			return new ResponseEntity(HttpStatus.NOT_FOUND);		
 		 		}
+		 		
+		 		//更新一个公司的基本信息
+//		 		@PutMapping(path = "/update/{id}") 
+//		 		public ResponseEntity<Object> updateEmployee(@PathVariable String id){
+//		 			for (Company company:companyList) {	 
+//		 			if(company.getId().equals(id)) {		
+//		 					company.setId(company.getId());
+//		 					company.setCompanyName(company.getCompanyName());
+//		 					company.setEmployees(company.getEmployees());
+//		 					company.setEmployeesNumber(company.getEmployeesNumber());
+//		 					return ResponseEntity.ok(company);
+//		 			
+//		 			}
+//		 		}		
+//		 			return new ResponseEntity(HttpStatus.NOT_FOUND);		
+//		 		}
+		 	   @PutMapping(consumes="application/json")
+				public ResponseEntity<Company> updateCompany(@RequestBody Company company){
+		 		  companyList.add(company);
+		 		 return ResponseEntity.ok(company);
+				}
 }
