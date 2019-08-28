@@ -14,7 +14,7 @@ import com.tw.apistackbase.bean.Employee;
 @RequestMapping("/companies")
 
 public class CompanyResource {
-	 private static List<Employee> employeeList = new ArrayList<Employee>() {{
+	 	private static List<Employee> employeeList = new ArrayList<Employee>() {{
 			add(new Employee(1));
 			add(new Employee(2));
 		}};
@@ -28,7 +28,7 @@ public class CompanyResource {
 		        return ResponseEntity.ok(companyList);
 		   }	 		 	
 		 	 
-		 	 //获取某一个特定的公司
+		 	 //获取某个特定的公司
 		 	 @GetMapping(path = "/{id}")
 		 	 public ResponseEntity<Company> queryCompany(@PathVariable String id) {
 		 		
@@ -39,7 +39,17 @@ public class CompanyResource {
 		 	       }
 		 	        return null;
 		 	 }
-	 	
-	 	
+		 	//获取某个公司下的所有员工
+		 		@GetMapping(path = "/{id}/employees")
+		 		public ResponseEntity<Object> getAllemployeesOfOneCompany(@PathVariable String id){
+		 			for(Company company:companyList) {
+		 				if (company.getId().equals(id)) {
+		 					return ResponseEntity.ok(company.getEmployees());
+		 				}
+		 			}
+		 			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		 		}
+		 		
+
 	 	
 }
